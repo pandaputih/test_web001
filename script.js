@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize EmailJS with your public key
+    // You need to sign up at https://www.emailjs.com/ and replace this with your actual public key
+    emailjs.init("wye7FsA2Qnkh3UA5L"); // Replace with your actual EmailJS public key
+    
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('header nav a, .cta-button, .footer-links a');
     
@@ -18,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Form submission with validation and better feedback
+    // Form submission with validation and EmailJS integration
     const contactForm = document.getElementById('contact-form');
     
     if (contactForm) {
@@ -28,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Simple form validation
             const name = this.querySelector('input[name="name"]').value.trim();
             const email = this.querySelector('input[name="email"]').value.trim();
+            const subject = this.querySelector('input[name="subject"]').value.trim() || 'Website Contact Form';
             const message = this.querySelector('textarea[name="message"]').value.trim();
             
             if (!name || !email || !message) {
@@ -41,20 +46,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Simulate form submission (in a real site, this would be an AJAX request)
+            // Prepare form submission
             const submitButton = this.querySelector('button[type="submit"]');
             const originalButtonText = submitButton.textContent;
             
             submitButton.disabled = true;
             submitButton.textContent = 'Sending...';
             
-            // Simulate network request
-            setTimeout(() => {
-                showFormMessage('Thank you for your message! We will get back to you soon.', 'success');
-                this.reset();
-                submitButton.disabled = false;
-                submitButton.textContent = originalButtonText;
-            }, 1500);
+            // Prepare template parameters for EmailJS
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                subject: subject,
+                message: message,
+                to_email: 'joni.nhsec@gmail.com'
+            };
+            
+            // Send email using EmailJS
+            // You need to create a service and template in EmailJS dashboard
+            // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual IDs
+            emailjs.send('wirachem_testweb001', 'template_oox642a', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    showFormMessage('Thank you for your message! We will get back to you soon.', 'success');
+                    contactForm.reset();
+                })
+                .catch(function(error) {
+                    console.log('FAILED...', error);
+                    showFormMessage('Failed to send message. Please try again later.', 'error');
+                })
+                .finally(function() {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                });
         });
     }
     
