@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize EmailJS with your public key
     // You need to sign up at https://www.emailjs.com/ and replace this with your actual public key
-    emailjs.init("wye7FsA2Qnkh3UA5L"); // Replace with your actual EmailJS public key
+    emailjs.init("St4ADK73zh21npAvs"); // Replace with your actual EmailJS public key
     
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('header nav a, .cta-button, .footer-links a');
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Send email using EmailJS
             // You need to create a service and template in EmailJS dashboard
             // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual IDs
-            emailjs.send('wirachem_testweb001', 'template_9qt181n', templateParams)
+            emailjs.send('website_contactus', 'template_web_contactus', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     showFormMessage('Thank you for your message! We will get back to you soon.', 'success');
