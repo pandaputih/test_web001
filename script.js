@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Send email using EmailJS
             // You need to create a service and template in EmailJS dashboard
             // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual IDs
-            emailjs.send('website_contactus', 'template_web_contactus', templateParams)
+            emailjs.send('website_contactus', 'template_web_contact_us', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     showFormMessage('Thank you for your message! We will get back to you soon.', 'success');
