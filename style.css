@@ -363,6 +363,11 @@ section h3:after {
     letter-spacing: 0.5px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     align-self: flex-start;
+    margin-top: 15px;
+}
+
+.g-recaptcha {
+    margin: 20px 0;
 }
 
 #contact-form button:hover {
@@ -373,10 +378,14 @@ section h3:after {
 /* Form message styles */
 .form-message {
     padding: 12px 15px;
-    margin-top: 20px;
+    margin: 15px 0;
     border-radius: 4px;
     font-weight: 500;
+    font-size: 14px;
     animation: fadeIn 0.3s ease;
+    width: calc(100% - 4px); /* Account for border width */
+    box-sizing: border-box;
+    max-width: 550px;
 }
 
 .form-message.success {

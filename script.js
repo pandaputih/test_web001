@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = this.querySelector('input[name="email"]').value.trim();
             const subject = this.querySelector('input[name="subject"]').value.trim() || 'Website Contact Form';
             const message = this.querySelector('textarea[name="message"]').value.trim();
+            const recaptchaResponse = grecaptcha.getResponse();
             
             if (!name || !email || !message) {
                 showFormMessage('Please fill in all required fields.', 'error');
@@ -43,6 +44,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Email validation
             if (!isValidEmail(email)) {
                 showFormMessage('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            // reCAPTCHA validation
+            if (!recaptchaResponse) {
+                showFormMessage('Please verify you are not a robot.', 'error');
                 return;
             }
             
@@ -59,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 from_email: email,
                 subject: subject,
                 message: message,
-                to_email: 'joni.nhsec@gmail.com'
+                to_email: 'wirachemlokautama@gmail.com',
+                'g-recaptcha-response': recaptchaResponse
             };
             
             // Send email using EmailJS
@@ -101,9 +109,10 @@ document.addEventListener('DOMContentLoaded', function() {
         messageElement.className = `form-message ${type}`;
         messageElement.textContent = message;
         
-        // Insert after the form
+        // Insert after the last form element (before the submit button)
         const form = document.getElementById('contact-form');
-        form.parentNode.insertBefore(messageElement, form.nextSibling);
+        const submitButton = form.querySelector('button[type="submit"]');
+        form.insertBefore(messageElement, submitButton);
         
         // Auto-remove after 5 seconds for success messages
         if (type === 'success') {
