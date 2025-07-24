@@ -496,8 +496,15 @@ footer {
     .footer-logo {
         margin-bottom: 20px;
     }
+    .container {
+        width: 95%;
+    }
     #contact-form {
         padding: 15px;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 8px;
+        margin: 0 auto;
     }
     .g-recaptcha {
         transform: scale(0.77);
